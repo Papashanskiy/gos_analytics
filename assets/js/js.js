@@ -1,6 +1,16 @@
 
 !(function($) {
 
+    // Preloader
+    $(window).on('load', function() {
+      if ($('#preloader').length) {
+        $('#preloader').delay(100).fadeOut('slow', function() {
+        //   $(this).remove();
+        //   $(this).css('width', '0');
+        });
+      }
+    });
+
     function indexInitRequest() {
         let receivedResponse = {};
         receivedResponse['Москва'] = 2.623,
@@ -30,6 +40,88 @@
         receivedResponse['Иркутск'] = 0.823,
         receivedResponse['Красноярск'] = 0.821
 
+        let receiverRiskResponse = {
+            region: 'Москва',
+            date: '18.12',
+            indices: {'11.12': 2.921.toFixed(3), '12.12': 1.312.toFixed(3), 
+            '13.12': 0.420.toFixed(3), '14.12': 2.321.toFixed(3), '15.12': 2.400.toFixed(3), 
+            '16.12': 1.9.toFixed(3), '17.12': 0.102.toFixed(3), '18.12': 2.623.toFixed(3)},
+            risks: {
+                0: {
+                    title: 'Читинец умер в очереди на компьютерную томографию',
+                    region: 'Забайкальский край',
+                    description: '1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями',
+                    url: 'https://www.chita.ru/news/152869/'
+                },
+                1: {
+                    title: 'Читинец умер в очереди на компьютерную томографию',
+                    region: 'Забайкальский край',
+                    description: '1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями',
+                    url: 'https://www.chita.ru/news/152869/'
+                },
+                2: {
+                    title: 'Читинец умер в очереди на компьютерную томографию',
+                    region: 'Забайкальский край',
+                    description: '1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями',
+                    url: 'https://www.chita.ru/news/152869/'
+                },
+                3: {
+                    title: 'Читинец умер в очереди на компьютерную томографию',
+                    region: 'Забайкальский край',
+                    description: '1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями',
+                    url: 'https://www.chita.ru/news/152869/'
+                },
+                4: {
+                    title: 'Читинец умер в очереди на компьютерную томографию',
+                    region: 'Забайкальский край',
+                    description: '1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями',
+                    url: 'https://www.chita.ru/news/152869/'
+                },
+                5: {
+                    title: 'Читинец умер в очереди на компьютерную томографию',
+                    region: 'Забайкальский край',
+                    description: '1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями',
+                    url: 'https://www.chita.ru/news/152869/'
+                },
+                6: {
+                    title: 'Читинец умер в очереди на компьютерную томографию',
+                    region: 'Забайкальский край',
+                    description: '1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями',
+                    url: 'https://www.chita.ru/news/152869/'
+                },
+                7: {
+                    title: 'Читинец умер в очереди на компьютерную томографию',
+                    region: 'Забайкальский край',
+                    description: '1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями',
+                    url: 'https://www.chita.ru/news/152869/'
+                },
+                8: {
+                    title: 'Читинец умер в очереди на компьютерную томографию',
+                    region: 'Забайкальский край',
+                    description: '1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями',
+                    url: 'https://www.chita.ru/news/152869/'
+                },
+                9: {
+                    title: 'Читинец умер в очереди на компьютерную томографию',
+                    region: 'Забайкальский край',
+                    description: '1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями',
+                    url: 'https://www.chita.ru/news/152869/'
+                },
+                10: {
+                    title: 'Читинец умер в очереди на компьютерную томографию',
+                    region: 'Забайкальский край',
+                    description: '1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями',
+                    url: 'https://www.chita.ru/news/152869/'
+                },
+                11: {
+                    title: 'Читинец умер в очереди на компьютерную томографию',
+                    region: 'Забайкальский край',
+                    description: '1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями',
+                    url: 'https://www.chita.ru/news/152869/'
+                },
+            }
+        };
+
         myResponse = Object.entries(receivedResponse)
             .sort(([,a], [,b]) => b - a)
             .reduce((r, [k, v]) => ({ ...r, [k]: v }), {});
@@ -55,7 +147,7 @@
         $('#top-table').empty();
         for (key in myResponse) {
             if (tik > 0) {
-                $('#top-table').append("<tr class='top'><td>" + key + 
+                $('#top-table').append("<tr class='open-overlay top'><td>" + key + 
                 "</td><td class='indx " + detectColor(myResponse[key]) + "'>" + 
                 myResponse[key].toFixed(3) + "</td></tr>");
                 tik--;
@@ -73,7 +165,7 @@
         $('#top-table').empty();
         for (key in myResponse) {
             if (tik > 0) {
-                $('#top-table').append("<tr class='top'><td>" + key + 
+                $('#top-table').append("<tr class='open-overlay top'><td>" + key + 
                 "</td><td class='indx " + detectColor(myResponse[key]) + "'>" + 
                 myResponse[key].toFixed(3) + "</td></tr>");
                 tik--;
@@ -85,7 +177,7 @@
     $(document).on('click', '#btn-all', function() {
         $('#top-table').empty();
         for (key in myResponse) {
-            $('#top-table').append("<tr class='top'><td>" + key + 
+            $('#top-table').append("<tr class='open-overlay top'><td>" + key + 
                 "</td><td class='indx " + detectColor(myResponse[key]) + "'>" + 
                 myResponse[key].toFixed(3) + "</td></tr>");
         }
@@ -97,7 +189,7 @@
         $(domObject).empty();
         for (let key in data) {
             $(domObject).append(
-                "<div class='list-group-item list-group-item-action " + 
+                "<div class='open-overlay list-group-item list-group-item-action " + 
                 detectColor(data[key]) + "'>" + key + " " + data[key].toFixed(3) + "</div>"
             )
         }
@@ -136,10 +228,11 @@
         let myChart = new Chart(ctx, {
             type: 'line',
             data: {
-                labels: ['Red', 'Blue', 'Yellow', 'Green', 'Purple', 'Orange'],
+                labels: ['11.12', '12.12', '13.12', '14.12', '15.12', '16.12',
+                         '17.12', '18.12'],
                 datasets: [{
-                    label: '# of Votes',
-                    data: [12, 19, 3, 5, 2, 3],
+                    label: 'Индекс',
+                    data: [2.921, 1.312, 0.420, 2.321, 2.400, 1.9, 0.102, 2.623],
                     backgroundColor: [
                         'rgba(255, 99, 132, 0)'
                     ],
@@ -169,38 +262,72 @@
     }
 
     function addRisks() {
+        // For crop string we need to use function outStr.substring(0, n) + '...'
+        // For title we need max 50 symbols
+        // For region we need max 25 symbols
+        // For description wee need max 90 symbols
         $('.overlay-content').append(
-            "<div class=row>" +
-                "<div class='col-sm'>col</div>" +
-                "<div class='col-sm'>col</div>" +
-                "<div class='col-sm'>col</div>" +
-                // "<div class='w-100'></div>" +
-                "<div class='col-sm'>col</div>" +
-                "<div class='col-sm'>col</div>" +
-                "<div class='col-sm'>col</div>" +
-            "</div>")
+            "<div id='risks-container' class='wrapper' data-aos='fade-right'>" +
+                "<div class='item red-cell'>" + 
+                "   <p class='title'><a href='#'>Читинец умер в очереди на компьютерную томографию</a></p>" +
+                "   <p class='region'>Забайкальский край</p>" +
+                "   <p class='description'>1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями</p>" +
+                "</div>" +
+                "<div class='item yellow-cell'>" + 
+                "   <p class='title'><a href='#'>Читинец умер в очереди на компьютерную томографию</a></p>" +
+                "   <p class='region'>Забайкальский край</p>" +
+                "   <p class='description'>1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями</p>" +
+                "</div>" +
+                "<div class='item green-cell'>" + 
+                "   <p class='title'><a href='#'>Читинец умер в очереди на компьютерную томографию</a></p>" +
+                "   <p class='region'>Забайкальский край</p>" +
+                "   <p class='description'>1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями</p>" +
+                "</div>" +
+                "<div class='item yellow-cell'>" + 
+                "   <p class='title'><a href='#'>Читинец умер в очереди на компьютерную томографию</a></p>" +
+                "   <p class='region'>Забайкальский край</p>" +
+                "   <p class='description'>1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями</p>" +
+                "</div>" +
+                "<div class='item green-cell'>" + 
+                "   <p class='title'><a href='#'>Читинец умер в очереди на компьютерную томографию</a></p>" +
+                "   <p class='region'>Забайкальский край</p>" +
+                "   <p class='description'>1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями</p>" +
+                "</div>" +
+                "<div class='item red-cell'>" + 
+                "   <p class='title'><a href='#'>Читинец умер в очереди на компьютерную томографию</a></p>" +
+                "   <p class='region'>Забайкальский край</p>" +
+                "   <p class='description'>1.3.5 Врачебные ошибки, отказ больному в приеме с летальным исходом или тяжелыми последствиями</p>" +
+                "</div>" +
+            "</div>");
+        addMoreButton();
+
+    }
+
+    function addMoreButton() {
+        $('.overlay-content').append(
+            "<div class='row'><div id='risks-btn-more' class='col-5 risks-more'>Показать еще</div></div>"
+        );
     }
 
     function fillOverlay(city) {
         $('.overlay-content').empty();
         $('.overlay-content').append("<h1>" + city + "</h1>");
-        $('.overlay-content').append("<div class='chart-body'><canvas id='myChart'></canvas></div>");
+        $('.overlay-content').append("<div class='chart-body'><canvas id='myChart' data-aos='fade-right'></canvas></div>");
         addChart();
         addRisks();
     }
 
     function overlayHandler(city) {
-        $('.overlay').css('width', '100%');
-        $('body').css('overflow', 'hidden');
-        fillOverlay(city);
+        $('#preloader').fadeIn('slow');
+        // Place for request to server
+        $('#preloader').fadeOut('slow', function() {
+            $('.overlay').css('width', '100%');
+            $('body').css('overflow', 'hidden');
+            fillOverlay(city);
+        });
     }
 
-    $(document).on('click', '.top', function() {
-        let city = $(this).first().text().replace(new RegExp("[0-9]", "g"), '').replace('.', '');
-        overlayHandler(city);
-    });
-
-    $(document).on('click', '.search-result div', function() {
+    $(document).on('click', '.open-overlay', function() {
         let city = $(this).first().text().replace(new RegExp("[0-9]", "g"), '').replace('.', '');
         overlayHandler(city);
     });
@@ -241,4 +368,5 @@
 
 // State
 let myResponse = {};
+let riskResponse = {};
 let shownRowsCount = 10;
