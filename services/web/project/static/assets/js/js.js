@@ -1,6 +1,76 @@
 
 !(function($) {
 
+    function createDoubleZeroArray(w, l) {
+        /*
+        * create array WxL
+        * params::
+        *   w: width
+        *   l: length
+        * */
+        let output = [], i;
+        for (i = 0; i < l; i++) {
+            output.push(new Array(w).fill(null));
+        }
+        return output;
+    }
+
+    function createMapMaskArray(mapMask) {
+        /*
+        * create map mask array with nulls or short name and index values
+        * params::
+        *   mapMask: Object {regionName: {coordinates: [x, y], short_name: region_sort_name}, }
+        *
+        * return::
+        *   Array [{short_name: short_name, indx: float between 0 and inf toFixed(3)}]
+        * */
+        let output = createDoubleZeroArray(18, 11);
+        let i;
+        for (let key in mapMask) {
+            let x = mapMask[key].coordinates[0];
+            let y = mapMask[key].coordinates[1];
+            let short_name = mapMask[key].short_name;
+            output[x][y] = {
+                short_name: short_name,
+                indx: (Math.random() * 4).toFixed(3)
+            };
+        }
+        return output;
+    }
+
+    function mapPainterHandler(mapMask) {
+        const mapArea = $('#mapArea');
+        let i, j;
+
+        let mapTableBody = "";
+        const mapMaskArray = createMapMaskArray(mapMask);
+        for (i = 0; i < mapMaskArray.length; i++) {
+            mapTableBody += "<tr>";
+            for (j = 0; j < mapMaskArray[i].length; j++) {
+                if (mapMaskArray[i][j] != null) {
+                    mapTableBody += "<td style='background-color: #2aabd2'>" + mapMaskArray[i][j].short_name + " " + mapMaskArray[i][j].indx + "</td>";
+                } else {
+                    mapTableBody += "<td></td>";
+                }
+            }
+            mapTableBody += "</tr>";
+        }
+        let mapTable = "<table class='table borderless'>" + mapTableBody + "</table>";
+        mapArea.append(mapTable);
+    }
+
+    $.ajax({
+        url: '/api/map_mask',
+        type: 'GET',
+        success: function (response) {
+            console.log(response);
+            mapPainterHandler(response.map_mask);
+        },
+        error: function (xhr) {
+            console.log('Error!');
+        }
+    });
+
     // Preloader
     $(window).on('load', function() {
       if ($('#preloader').length) {
